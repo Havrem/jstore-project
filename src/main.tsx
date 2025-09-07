@@ -3,11 +3,18 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import ReactDOM from 'react-dom/client'
+import { CartProvider } from 'contexts/CartContext.tsx'
+import Modal from "react-modal";
 
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 
+import { ToastContainer } from 'react-toastify';
+
+
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
+
+Modal.setAppElement("#root");
 
 // Create a new router instance
 const router = createRouter({ routeTree })
@@ -25,7 +32,10 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <CartProvider>
+        <RouterProvider router={router} />
+        <ToastContainer/>
+      </CartProvider>
     </StrictMode>,
   )
 }

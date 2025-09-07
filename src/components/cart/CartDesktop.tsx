@@ -1,53 +1,44 @@
-import { Banner } from "@components/Banner"
-import styles from "@css/Cart.module.scss"
-
-import defaultImage from "@assets/default_product.png";
-import type { LineItem } from "@schemas/product.schema";
+import { Banner } from "@components/Banner";
+import styles from "@css/Cart.module.scss";
 import { LineItemCard } from "@components/card/LineItemCard";
-
-const mockCartItems: LineItem[] = [
-  {
-    id: 1,
-    product: {
-      id: 101,
-      title: "Cool T-Shirt",
-      image: defaultImage,
-      price: 25,
-    },
-    quantity: 2,
-  },
-  {
-    id: 2,
-    product: {
-      id: 102,
-      title: "Stylish Hat",
-      image: defaultImage,
-      price: 15,
-    },
-    quantity: 1,
-  },
-  {
-    id: 3,
-    product: {
-      id: 103,
-      title: "Comfy Hoodie",
-      image: defaultImage,
-      price: 40,
-    },
-    quantity: 1,
-  },
-];
+import { useCart } from "contexts/CartContext";
+import { placeOrderApi } from "@assets/api/orders";
 
 export const CartDesktop = () => {
-    return (
-        <div className={styles.mainContainer}>
-            <Banner/>
-            <h1>Cart</h1>
-            <div className={styles.content}>
-                {mockCartItems.map((item) => (
-                    <LineItemCard key={item.id} lineItem={item} />
-                ))}
-            </div>
+  const { subtotal, items, clear } = useCart();
+
+  const handlePlaceOrder = async () => {
+    try {
+      const response = await placeOrderApi({ items });
+      clear();
+      alert(`Order confirmed! ID: ${response.orderId}`);
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong placing the order.");
+    }
+  };
+
+  return (
+    <div className={styles.mainContainer}>
+      <Banner />
+      <h1>Cart</h1>
+
+      <div className={styles.contentWrapper}>
+        <div className={styles.content}>
+          {items.length === 0 ? (
+            <p>Your cart is empty.</p>
+          ) : (
+            <>
+              {items.map((li) => (
+                <LineItemCard key={li.id} lineItem={li} />
+              ))}
+
+              <p>Subtotal: ${subtotal.toFixed(2)}</p>
+              <button className={styles.orderBtn} onClick={handlePlaceOrder}>Place order</button>
+            </>
+          )}
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};

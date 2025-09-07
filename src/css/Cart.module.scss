@@ -6,13 +6,36 @@
     padding: 0.5rem;
 }
 
+.contentWrapper {
+    flex: 1;
+    background-color: rgb(235, 248, 233);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
 .content {
     // border: 1px solid blue;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    background-color: rgb(235, 248, 233);
+    background-color: rgb(255, 255, 255);
     width: 50%;
-    align-self: center;
+
+    .orderBtn {
+        all: unset;
+        cursor: pointer;
+        background-color: rgb(255, 255, 255);
+        padding: 0.3rem;
+        width: 100%;
+        align-self: center;
+        text-align: center;
+        border: 0.1rem solid black;
+
+        &:hover {
+            background-color: rgb(212, 247, 212);
+        }
+    }
 }
