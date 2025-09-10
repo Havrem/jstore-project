@@ -7,10 +7,3 @@ export const productSchema = z.object({
     price: z.number()
 })
 export type Product = z.infer<typeof productSchema>;
-
-export const lineItemSchema = z.object({
-    id: z.number(),
-    product: productSchema,
-    quantity: z.number()
-})
-export type LineItem = z.infer<typeof lineItemSchema>;

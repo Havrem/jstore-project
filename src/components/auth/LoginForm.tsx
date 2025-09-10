@@ -1,26 +1,21 @@
-// LoginFormSmall.tsx (zod + RHF)
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginInput } from "@schemas/auth.schema";
-// import { useAuth } from "@hooks/useAuth";
 import { toast } from "react-toastify";
-import { useNavigate } from "@tanstack/react-router";
 import styles from "@css/Auth.module.scss";
+import { useAuth } from "contexts/AuthContext";
 
 export const LoginForm = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<LoginInput>({ resolver: zodResolver(loginSchema) });
 
-//   const { login } = useAuth();
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const onSubmit = async (data: LoginInput) => {
-    toast.success('Submitting...')
+  const onSubmit = async (input: LoginInput) => {
     try {
-    //   await login(data.email, data.password);
-    //   navigate({ to: "/dashboard" });
+      await login(input);
+      toast.success("Logged in!")
     } catch {
-      // server error example
       toast.error("Login failed. Please check your credentials.");
     }
   };

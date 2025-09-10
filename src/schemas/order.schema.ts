@@ -1,16 +1,20 @@
 import { z } from "zod";
-import { lineItemSchema } from "./product.schema";
+import { productSchema } from "./product.schema";
 
+export const cartItemSchema = z.object({
+    id: z.number(),
+    product: productSchema,
+    quantity: z.number()
+})
+export type CartItem = z.infer<typeof cartItemSchema>;
 
-export const placeOrderRequestSchema = z.object({
-  items: z.array(lineItemSchema),
-});
+export const orderItemSchema = z.object({
+  productId: z.number(),
+  quantity: z.number()
+})
+export type OrderItem = z.infer<typeof orderItemSchema>;
 
-export type PlaceOrderRequest = z.infer<typeof placeOrderRequestSchema>;
-
-export const placeOrderResponseSchema = z.object({
-  orderId: z.number(),
-  status: z.enum(["SUCCESS", "FAILED"]),
-});
-
-export type PlaceOrderResponse = z.infer<typeof placeOrderResponseSchema>;
+export const orderRequestSchema = z.object({
+  items: z.array(orderItemSchema)
+})
+export type OrderRequest = z.infer<typeof orderRequestSchema>;

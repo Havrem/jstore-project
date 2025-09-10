@@ -1,25 +1,22 @@
-// RegisterForm.tsx
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, type RegisterInput } from "@schemas/auth.schema";
 import styles from "@css/Auth.module.scss";
-// import { useAuth } from "@hooks/useAuth";
-// import { toast } from "react-toastify";
-// import { useNavigate } from "@tanstack/react-router";
+import { useAuth } from "contexts/AuthContext";
+import { toast } from "react-toastify";
 
 export const RegisterForm = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<RegisterInput>({ resolver: zodResolver(registerSchema) });
 
-  // const { register: registerUser } = useAuth();
-  // const navigate = useNavigate();
+  const { register: registerUser } = useAuth();
 
-  const onSubmit = async (data: RegisterInput) => {
+  const onSubmit = async (input: RegisterInput) => {
     try {
-      // await registerUser(data.name, data.email, data.password, data.address);
-      // navigate({ to: "/dashboard" });
+      await registerUser(input);
+      toast.success("Registered!")
     } catch {
-      // toast.error("Registration failed. Please try again.");
+      toast.error("Register failed.");
     }
   };
 

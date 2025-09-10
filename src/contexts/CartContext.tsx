@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-import type { LineItem, Product } from "@schemas/product.schema";
+import type { Product } from "@schemas/product.schema";
+import type { CartItem } from "@schemas/order.schema";
 
 type CartContextValue = {
-  items: LineItem[];
+  items: CartItem[];
   add: (product: Product, qty?: number) => void;
   increment: (productId: number) => void;
   decrement: (productId: number) => void;
@@ -14,7 +15,7 @@ type CartContextValue = {
 const CartContext = createContext<CartContextValue | null>(null);
 
 export const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const [items, setItems] = useState<LineItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>([]);
 
   const add = (product: Product, qty: number = 1) => {
     setItems(prev => {
@@ -24,7 +25,7 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
         next[i] = { ...next[i], quantity: next[i].quantity + qty };
         return next;
       }
-      const newItem: LineItem = {
+      const newItem: CartItem = {
         id: Date.now(),           // simple unique id for the line item
         product,
         quantity: Math.max(1, qty),
