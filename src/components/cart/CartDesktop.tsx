@@ -33,7 +33,7 @@ export const CartDesktop = () => {
       <div className={styles.contentWrapper}>
         <div className={styles.content}>
           {items.length === 0 ? (
-            <p>Your cart is empty.</p>
+            <p className={styles.emptyCart}>Your cart is empty.</p>
           ) : (
             <>
               {items.map((li) => (

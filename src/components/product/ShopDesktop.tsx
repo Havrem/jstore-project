@@ -16,10 +16,12 @@ export const ProductDesktop = () => {
         <div className={styles.mainContainer}>
             <Banner/>
             <h1>Merchandise</h1>
-            <div className={styles.content}>
-                {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))} 
+            <div className={styles.contentWrapper}>
+                <div className={styles.content}>
+                    {products.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))} 
+                </div>
             </div>
         </div>
     )

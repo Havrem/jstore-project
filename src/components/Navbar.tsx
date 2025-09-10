@@ -25,7 +25,7 @@ export const Navbar = () => {
     return (
         <div className={styles.mainContainer}>
             <div className={styles.left}>
-                <Link to="/shop">
+                <Link to="/">
                 Shop
                 </Link>
             </div>
