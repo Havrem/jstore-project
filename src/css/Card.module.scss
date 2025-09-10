@@ -2,10 +2,22 @@
     border: 0.1rem solid rgb(0, 0, 0);
     padding: 0.5rem;
     background-color: rgb(247, 255, 248);
+    display: flex;
+    flex-direction: column;
+
+    .productTitle {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;   // number of lines
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 
     img {
         border: 1px solid rgb(141, 139, 139);
         background-color: white;
+        width: 180px;
+        height: 180px;
+        object-fit: contain;
     }
 
     button {
@@ -13,6 +25,8 @@
         cursor: pointer;
         background-color: rgb(180, 244, 180);
         padding: 0.2rem;
+        margin-top: auto;
+        width: 50%;
 
         &:hover {
             background-color: rgb(212, 247, 212);
@@ -32,7 +46,9 @@
         img {
             border: 1px solid rgb(141, 139, 139);
             background-color: white;
+            width: 100px;
             height: 100px;
+            object-fit: contain;
         }
     }
 

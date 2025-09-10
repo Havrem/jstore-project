@@ -1,10 +1,10 @@
 import { Banner } from "@components/Banner";
 import styles from "@css/Cart.module.scss";
-import { LineItemCard } from "@components/card/LineItemCard";
+import { CartItemCard } from "@components/card/CartItemCard";
 import { useCart } from "contexts/CartContext";
 import { useAuth } from "contexts/AuthContext";
 import { toast } from "react-toastify";
-import { useOrder } from 'hooks/useOrder';
+import { order } from 'hooks/useOrder';
 
 export const CartDesktop = () => {
   const { subtotal, items, clear } = useCart();
@@ -15,13 +15,12 @@ export const CartDesktop = () => {
       toast.error("You must be logged in to place an order!")
     } else {
       try {
-        // const response = await placeOrderApi({ items });
+        await order(items);
+
         clear();
-        // alert(`Order confirmed! ID: ${response.orderId}`);
         toast.success("Order placed!")
       } catch (err) {
-        console.error(err)
-        alert("Something went wrong placing the order.")
+        toast.error("Could not place order.")
       }
     }
   };
@@ -38,7 +37,7 @@ export const CartDesktop = () => {
           ) : (
             <>
               {items.map((li) => (
-                <LineItemCard key={li.id} lineItem={li} />
+                <CartItemCard key={li.id} lineItem={li} />
               ))}
 
               <p>Subtotal: ${subtotal.toFixed(2)}</p>

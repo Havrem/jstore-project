@@ -1,8 +1,8 @@
-import type { LineItem } from '@schemas/product.schema'
+import type { CartItem } from '@schemas/order.schema';
 import styles from '@css/Card.module.scss'
 import { useCart } from 'contexts/CartContext'
 
-export const LineItemCard = ({lineItem} : {lineItem : LineItem}) => {
+export const CartItemCard = ({lineItem} : {lineItem : CartItem}) => {
     const { increment, decrement } = useCart();
 
     const handleDecrement = async () => {
