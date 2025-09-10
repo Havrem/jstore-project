@@ -3,7 +3,6 @@ import styles from '@css/Card.module.scss';
 import { useCart } from "contexts/CartContext";
 
 export const ProductCard = ({product} : {product : Product}) => {
-    const id = product.id;
     const { add } = useCart();
 
     const handleAddToCart = async () => {
